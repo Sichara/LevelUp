@@ -45,7 +45,7 @@ function cloneNumKeys(obj) {
     return _obj;
 }
 
-//4. Функцию суммирующую числовые значения
+//4. Функцию суммирующую числовые значения 
 function sumNumbersObj (obj) {
     var key,
         result = 0;
