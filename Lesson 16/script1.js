@@ -2,8 +2,8 @@
  * Created by 1 on 24.09.2015.
  */
 var obj = {
-        'name' : 'Alex',
-        'age' : 28
+        name : 'Alex',
+        age : 28
     },
     objClone = cloneObject(obj),
     objString = cloneStringKeys(obj);
@@ -26,7 +26,7 @@ function cloneStringKeys(obj) {
         str = '';
 
     for (key in obj) {
-        if (typeof obj[key] == 'string') _obj[key] = obj[key];
+        if (typeof obj[key] === 'string') _obj[key] = obj[key];
     }
 
     return _obj;
@@ -35,8 +35,7 @@ function cloneStringKeys(obj) {
 //3. Функцию копирующую числа
 function cloneNumKeys(obj) {
     var key,
-        _obj = {},
-        str = '';
+        _obj = {};
 
     for (key in obj) {
         if ( !isNaN(obj[key]) ) _obj[key] = Number(obj[key]);
@@ -45,7 +44,7 @@ function cloneNumKeys(obj) {
     return _obj;
 }
 
-//4. Функцию суммирующую числовые значения 
+//4. Функцию суммирующую числовые значения
 function sumNumbersObj (obj) {
     var key,
         result = 0;
