@@ -42,7 +42,15 @@ printPopForEach(country, population);
     fruits2.splice(-1, 1, "ананас"); //вариант после дополнительного прочтения материала :)
 
 //Напишите код для вывода alert случайного значения из массива
-    console.log(fruits[ Math.floor(Math.random() * fruits.length) ]);
+function randomMax(max) {
+    return Math.floor(Math.random() * max);
+}
+
+function randomElemArray (arr) {
+    return arr[ randomMax(arr.length) ];
+}
+
+console.log( randomElemArray(fruits2) );
 
 //Создайте функцию find(arr, value), которая ищет в массиве arr значение value и возвращает его номер,
 // если найдено, или -1, если не найдено.
