@@ -149,3 +149,59 @@ function extractOddItems(arr) {
     });
 }
 console.log(extractOddItems([1, 2, 3, 4, 5, 6, 7, 8, 9]));
+
+//Преобразовать одномерный массив в двумерный
+
+function toMatrix(data, rowSize) {
+    var i;
+    var rowChildSize = 0;
+    var columnChild = 0;
+    var dataChild = [];
+    var rowChild = 0;
+    var _data = [];
+
+    for (i = 0; i < data.length; i += 1) {
+        dataChild.push(data[i]);
+        rowChildSize = dataChild.length;
+        if (rowChildSize === rowSize) {
+            _data.push(dataChild.slice(0, rowSize));
+            dataChild.splice(0, rowChildSize);
+        }
+    }
+    if (rowChildSize < rowSize && rowChildSize > 0) {
+        _data.push(dataChild.slice(0, rowSize));
+        dataChild.splice(0, rowChildSize);
+    }
+
+    return _data;
+}
+
+//http://jscourse.com/task/simple-templater
+
+function templater(templateString, dataObj) {
+                var _arrTemplate = templateString.split(' ');
+                var resultArr = [];
+                var indexOpenBkt;
+                var indexCloseBkt;
+                var i;
+                var key = '';
+
+                console.log(_arrTemplate);
+
+                for (i = 0; i <_arrTemplate.length; i +=1) {
+                               indexOpenBkt = _arrTemplate[i].indexOf('${');
+                               indexCloseBkt = _arrTemplate[i].indexOf('}');
+                               key = _arrTemplate[i].slice(indexOpenBkt+2, indexCloseBkt);
+                               if (dataObj.hasOwnProperty(key)) {
+                                               resultArr.push(dataObj[key]);
+                               } else {
+                                               resultArr.push(_arrTemplate[i]);
+                               }
+                }
+
+                return resultArr.join(' ');
+}
+
+ 
+
+templater('Hello ${user name}!', { 'user name': 'Sergey' });

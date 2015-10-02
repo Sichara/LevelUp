@@ -1,29 +1,55 @@
 * {
   margin: 0;
   padding: 0;
+
 }
 
-@width-body: 990px;
+@desktop: ~"(min-device-width: 1200px)";
+@desktop-body: 1200px;
+@laptop: ~"(min-device-width: 992px) and (max-device-width: 1200px)";
+@laptop-body: 960px;
+@tablet: ~"(min-device-width: 768px) and (max-device-width: 992px)";
+@tablet-body: 768px;
+@phone: ~"(max-device-width: 768px)";
+@phone-body: 480px;
+
+.no-list > li {
+  display: inline-block;
+}
 
 .container {
-  width: @width-body;
-  margin: 0 auto;
-}
-
-@import url(http://weloveiconfonts.com/api/?family=brandico);
-
-/* brandico */
-[class*="brandico-"]:before {
-  font-family: 'brandico', sans-serif;
-}
-
-.icon {
-  width: 20px;
-  height: 20px;
-  font-size: 20px;
+  width: 100%;
+  background: #fff;
 }
 
 .container:after {
+  clear: both;
+}
+
+.row {
+  display:table;
+  margin: 0 auto;
+
+  @media screen and @desktop {
+    width: @desktop-body;
+  }
+
+  @media screen and @laptop {
+    width: @laptop-body;
+  }
+
+  @media screen and @tablet {
+    width: @tablet-body;
+  }
+
+  @media screen and @phone {
+    width: @phone-body;
+  }
+}
+
+.row:after,
+.row:before{
+  content:'';
   clear: both;
 }
 
@@ -34,18 +60,6 @@
   box-sizing: border-box;
 }
 
-.row {
-  display:table;
-  width: 100%;
-}
-
-.row:after,
-.row:before{
-  content:'';
-  clear: both;
-}
-
-
 .middle {
   vertical-align: middle;
 }
@@ -54,7 +68,61 @@
   vertical-align: top;
 }
 
-@media screen and (min-device-width: 1200px) {
+.banner {
+  background: #F2F2F2;
+
+  @media screen and @phone{
+    display: none;
+  }
+}
+
+.menu {
+  position: relative;
+  padding-top: 40px;
+}
+
+.menu-link {
+  display: inline-block;
+  font-family: 'Proxima Nova', Arial, sans-serif;
+  color: #000;
+  text-decoration: none;
+}
+
+.logo {
+  font-size: 21px;
+  text-transform: uppercase;
+  font-weight: 900;
+  margin-top: 11px;
+}
+
+.menu-list {
+  //font: 900 28px/35px "Proxima Nova", "Arial", sans-serif;
+
+  .menu-item {
+    font-size: 0;
+
+    a {
+      font: 900 28px/35px "Proxima Nova", "Arial", sans-serif;
+      color: #000;
+      text-decoration: none;
+
+      &:hover {
+        color: #003cff;
+      }
+    }
+
+    &:after {
+      content: ',';
+      margin-right: 0.65em;
+      font: 900 28px/35px "Proxima Nova", "Arial", sans-serif;
+    }
+    &:last-child:after {
+      content: none;
+    }
+  }
+}
+
+@media screen and @desktop {
   .col-lg-1 {
     width: 8.33%
   }
@@ -104,7 +172,7 @@
   }
 }
 
-@media screen and (min-device-width: 992px) and (max-device-width: 1200px) {
+@media screen and @laptop {
   .col-md-1 {
     width: 8.33%
   }
@@ -154,7 +222,7 @@
   }
 }
 
-@media screen and (min-device-width: 768px) and (max-device-width: 992px) {
+@media screen and @tablet {
   .col-sm-1 {
     width: 8.33%
   }
@@ -204,7 +272,7 @@
   }
 }
 
-@media screen and (max-device-width: 768px) {
+@media screen and @phone {
   .col-xs-1 {
     width: 8.33%
   }
@@ -253,3 +321,17 @@
     width: 100%
   }
 }
+
+@import url(http://weloveiconfonts.com/api/?family=brandico);
+
+/* brandico */
+[class*="brandico-"]:before {
+  font-family: 'brandico', sans-serif;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+  font-size: 20px;
+}
+/* brandico */
