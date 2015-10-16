@@ -95,9 +95,9 @@ for (var currentBottleIndex = BOTTLES_AT_START; currentBottleIndex > 0; currentB
 var random = Math.random();
 var MAX_NUMBER_CHOICE = 50;
 var MAX_RETRIES = 10;
-var PROGRAM_CHOISE = Math.round(random * MAX_NUMBER_CHOICE);
+var PROGRAM_CHOISE = Math.floor(random * MAX_NUMBER_CHOICE);
 var messagePromt = 'Я загадала число. Угадывай, пользователь';
-var rememberPlayerChoice = 999;
+var rememberPlayerChoice = Infinity;
 var playerChoice;
 var userInput;
 var countRetries;
@@ -105,7 +105,7 @@ var countRetries;
 //console.log(PROGRAM_CHOISE);
 for (countRetries = 1; countRetries <= MAX_RETRIES; countRetries += 1) {
     userInput = prompt(messagePromt); //в первый раз 'Я загадала число. Угадывай, пользователь'
-    playerChoice = parseInt(userInput, 10);
+    playerChoice = parseInt(userInput.trim(), 10);
 
     if (isNaN(playerChoice)) {
         console.log('Вводить надо цифрами');
@@ -114,7 +114,7 @@ for (countRetries = 1; countRetries <= MAX_RETRIES; countRetries += 1) {
             messagePromt = 'Угадал хитрец за ' + countRetries + ' попыток';
             break;
         } else {
-            if (Math.abs(PROGRAM_CHOISE - playerChoice) < Math.abs(PROGRAM_CHOISE - rememberPlayerChoice)) {
+            if (Math.abs(PROGRAM_CHOISE - playerChoice) <= Math.abs(PROGRAM_CHOISE - rememberPlayerChoice)) {
                 messagePromt = 'Теплее';
                 // console.log(Math.abs(PROGRAM_CHOISE - playerChoice), Math.abs(PROGRAM_CHOISE - rememberPlayerChoice));
             } else {
@@ -150,8 +150,67 @@ function extractOddItems(arr) {
 }
 console.log(extractOddItems([1, 2, 3, 4, 5, 6, 7, 8, 9]));
 
-//Преобразовать одномерный массив в двумерный
+// Проверить является ли один массив подмножеством второго
+function contains(where, what) {
+/*    var result;
+    result = what.every(function(itemWhat) {
+        return where.some(function(itemWhere) {
+            console.count('loop');  
+            return itemWhere === itemWhat;
+        });
+    });
 
+    return result;*/
+    var i;
+    for (i = 0; i < what.length; i += 1) {
+        if (where.indexOf(what[i]) === -1) {
+            return false;
+        }
+    }
+    return true;
+}
+
+console.log(contains([1, 2, 3], [3, 2])); // true
+console.log(contains([1, 2, 3], [3, 2, 1, 2, 3])); // true
+
+// Объединить объекты
+function extend(obj1, obj2) {
+    var key;
+
+    for (key in obj2) {
+        obj1[key] = obj2[key];
+    }
+
+    return obj1;
+}
+
+console.log(extend({
+    foo: 'bar',
+    baz: 1
+}, {
+    foo: true,
+    zoop: 0
+})); // {foo: true, baz: 1, zoop: 0}
+
+//Создать объект из массивов данных
+function createObject(arrOfKeys, arrOfData) {
+    var resultObj = {};
+    var i;
+    var key;
+
+    for (i = 0; i < arrOfKeys.length; i += 1) {
+        key = arrOfKeys[i];
+        resultObj[key] = (i < arrOfData.length) ? arrOfData[i] : undefined;
+        // resultObj[key] = arrOfData[i];
+    }
+
+    return resultObj;
+}
+
+console.log(createObject(['foo'], ['bar'])); // {foo: 'bar'}
+console.log(createObject(['foo', 'extra'], ['bar'])); // {foo: 'bar', extra: undefined}
+
+//Преобразовать одномерный массив в двумерный
 function toMatrix(data, rowSize) {
     var i;
     var rowChildSize = 0;
@@ -176,32 +235,83 @@ function toMatrix(data, rowSize) {
     return _data;
 }
 
-//http://jscourse.com/task/simple-templater
-
-function templater(templateString, dataObj) {
-                var _arrTemplate = templateString.split(' ');
-                var resultArr = [];
-                var indexOpenBkt;
-                var indexCloseBkt;
-                var i;
-                var key = '';
-
-                console.log(_arrTemplate);
-
-                for (i = 0; i <_arrTemplate.length; i +=1) {
-                               indexOpenBkt = _arrTemplate[i].indexOf('${');
-                               indexCloseBkt = _arrTemplate[i].indexOf('}');
-                               key = _arrTemplate[i].slice(indexOpenBkt+2, indexCloseBkt);
-                               if (dataObj.hasOwnProperty(key)) {
-                                               resultArr.push(dataObj[key]);
-                               } else {
-                                               resultArr.push(_arrTemplate[i]);
-                               }
-                }
-
-                return resultArr.join(' ');
+// Сложить все аргументы
+function sum() {
+    var result;
+    for (var i = 0; i < arguments.length; i++) {
+        result = (i === 0) ? arguments[0] : result + arguments[i];
+    }
+    return result;
 }
 
- 
+// Проверить вхождение элементов в массив
+function isInArray(arr) {
+    var i;
+    for (i = 1; i < arguments.length; i += 1) {
+        if (arr.indexOf(arguments[i]) === -1) {
+            return false;
+        }
+    }
+    return true;
+}
 
-templater('Hello ${user name}!', { 'user name': 'Sergey' });
+// Проверить каждый элемент массива на удовлетворение условию
+function every(arr, func) {
+    var i;
+    for (i = 0; i < arr.length; i += 1) {
+        if ( !func(arr[i], i, arr) ) return false; 
+    }
+
+    return true;
+}
+
+// Выполнить функции из массива
+function execFunctions(arrOfFunctions) {
+    var arrayOfResults = [];
+    var i;
+    for (i = 0; i < arrOfFunctions.length; i += 1) {
+        arrayOfResults.push(arrOfFunctions[i]());
+    }
+
+    return arrayOfResults;
+}
+
+// Получить название файла или папки из пути
+function getName(path) {
+    var arrOfFolders = path.trim().split('/');
+    var length = arrOfFolders.length - 1;
+
+    return (arrOfFolders[length]) ? (arrOfFolders[length]) 
+                                  : (arrOfFolders[arrOfFolders.indexOf('', 1) - 1]);
+}
+
+//http://jscourse.com/task/simple-templater
+function templater(templateString, dataObj) {
+    var _arrTemplate = templateString.split(' ');
+    var resultArr = [];
+    var indexOpenBkt;
+    var indexCloseBkt;
+    var i;
+    var key = '';
+
+    console.log(_arrTemplate);
+
+    for (i = 0; i < _arrTemplate.length; i += 1) {
+        indexOpenBkt = _arrTemplate[i].indexOf('${');
+        indexCloseBkt = _arrTemplate[i].indexOf('}');
+        key = _arrTemplate[i].slice(indexOpenBkt + 2, indexCloseBkt);
+        if (dataObj.hasOwnProperty(key)) {
+            resultArr.push(dataObj[key]);
+        } else {
+            resultArr.push(_arrTemplate[i]);
+        }
+    }
+
+    return resultArr.join(' ');
+}
+
+
+
+templater('Hello ${user name}!', {
+    'user name': 'Sergey'
+});
