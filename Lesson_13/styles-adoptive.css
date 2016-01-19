@@ -1,0 +1,27 @@
+*{
+    margin: 0;
+    padding: 0;    
+}
+body {
+    font: 100%/1.5em Arial, Helvetica, sans-serif;/*100% - шрифт по дефолту(16px)/1,5em - междустрочный интервал === 16px*/
+}
+.container { /*Является контекстом*/
+    width:90%; /*960px*/
+    background: #e2e2e2;
+    margin:0 auto;
+}
+section {    width:67.71%;/*650/960*100  = 67,7%*/
+    float:left;
+}
+
+section h2 {
+    font-size:1.875em;/*30px/16px = 1,875em*/
+}
+aside {
+    background: #bcbcbc;
+    width: 31.25%;
+    float: right;
+}
+footer {
+    clear:both;
+}
