@@ -1,0 +1,81 @@
+.container {
+    width:100vw;
+    height:100vh;
+    perspective: 800px;
+    position: relative;
+}
+.carousel {
+    position:absolute;
+    width:200px;
+    height:100px;
+    top:50%;
+    left:50%;
+    transform-style: preserve-3d;
+    margin-top:-100px;
+    margin-left:-40px;
+    transform: rotateY(0deg);
+    transition: 10s ease-in;
+}
+
+.carousel:hover {
+    transform: rotateY(-360deg);
+}
+
+.side {
+    width: 100%;
+    height:100%;
+    position:absolute;
+    top:0;
+    left:0;
+    transform-style: preserve-3d;
+    border:2px solid #414141;
+}
+
+.side.side1 {
+    background: rgba(0, 255, 39, 0.76);
+    transform:translateZ(300px);
+}
+
+.side.side2 {
+    background: rgba(0, 10, 255, 0.76);
+    transform:rotateY(40deg) translateZ(300px);
+}
+
+.side.side3 {
+    background: rgba(255, 27, 213, 0.76);
+    transform:rotateY(80deg) translateZ(300px);
+}
+
+.side.side4 {
+    background: rgba(127, 255, 64, 0.76);
+    transform:rotateY(120deg) translateZ(300px);
+}
+
+.side.side5 {
+    background: rgba(27, 137, 255, 0.76);
+    transform:rotateY(160deg) translateZ(300px);
+}
+.side.side6 {
+    background: rgba(255, 218, 33, 0.76);
+    transform:rotateY(200deg) translateZ(300px);
+}
+
+.side.side7 {
+    background: rgba(255, 30, 25, 0.76);
+    transform:rotateY(240deg) translateZ(300px);
+}
+
+.side.side8 {
+    background: rgba(40, 64, 255, 0.76);
+    transform:rotateY(280deg) translateZ(300px);
+}
+
+.side.side9 {
+    background: rgba(255, 0, 45, 0.76);
+    transform:rotateY(320deg) translateZ(300px);
+}
+
+iframe {
+    width: 100%;
+    height: 100%;
+}
